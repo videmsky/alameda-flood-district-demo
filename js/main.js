@@ -2,34 +2,45 @@
 
 	var map = L.map('map', {
 		center: [37.728699, -122.159205],
-		zoom: 12
+		zoom: 10
 	});
 
 	var tileURL1 = 'http://tile.stamen.com/terrain/{z}/{x}/{y}.png';
 	var tileURL2 = 'http://a.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'
 
-	L.tileLayer(tileURL1, {
+	L.tileLayer(tileURL2, {
 
 	}).addTo(map);
 
 	var url = "http://waterservices.usgs.gov/nwis/iv/?format=json&stateCd=la&parameterCd=00060,99133"
 
+	var watershedTiles = L.mapbox.tileLayer('chachasikes.i0ah14cg')
+		.addTo(map);
+	var watershedGridLayer = L.mapbox.gridLayer('chachasikes.i0ah14cg')
+		.addTo(map);
+
+	var flowlineTiles = L.mapbox.tileLayer('chachasikes.i0aoj0cm')
+		.addTo(map);
+	var flowlineGridLayer = L.mapbox.gridLayer('chachasikes.i0aoj0cm')
+		.addTo(map);
+
 	var acpwagridTiles = L.mapbox.tileLayer('chachasikes.i07ip513')
 		.addTo(map);
 	var acpwagridGridLayer = L.mapbox.gridLayer('chachasikes.i07ip513')
 		.addTo(map);	
-	// var pdsiGridControl = L.mapbox.gridControl(pdsiGridLayer).addTo(map);
+	var pdsiGridControl = L.mapbox.gridControl(pdsiGridLayer).addTo(map);
 
-	pdsiGridLayer.on('mouseover', function(e){
-		// console.log(e.data);
-		if (e.data == null) {
-			return;
-		} else {
-			document.getElementById('preg').innerHTML = e.data.NAME.toLowerCase();
-			document.getElementById('pval').innerHTML = e.data.PDSI;
-		}
 
-	});
+	// pdsiGridLayer.on('mouseover', function(e){
+	// 	// console.log(e.data);
+	// 	if (e.data == null) {
+	// 		return;
+	// 	} else {
+	// 		document.getElementById('preg').innerHTML = e.data.NAME.toLowerCase();
+	// 		document.getElementById('pval').innerHTML = e.data.PDSI;
+	// 	}
+
+	// });
 
 	// $.getJSON( url, function( data ) {
 		
