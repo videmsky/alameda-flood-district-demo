@@ -15,20 +15,62 @@
 	var url = "http://waterservices.usgs.gov/nwis/iv/?format=json&stateCd=la&parameterCd=00060,99133"
 
 	var watershedTiles = L.mapbox.tileLayer('chachasikes.i0ah14cg')
-		.addTo(map);
+		// .addTo(map);
 	var watershedGridLayer = L.mapbox.gridLayer('chachasikes.i0ah14cg')
-		.addTo(map);
+		// .addTo(map);
 
 	var flowlineTiles = L.mapbox.tileLayer('chachasikes.i0aoj0cm')
-		.addTo(map);
+		// .addTo(map);
 	var flowlineGridLayer = L.mapbox.gridLayer('chachasikes.i0aoj0cm')
-		.addTo(map);
+		// .addTo(map);
 
 	var acpwagridTiles = L.mapbox.tileLayer('chachasikes.i07ip513')
-		.addTo(map);
+		// .addTo(map);
 	var acpwagridGridLayer = L.mapbox.gridLayer('chachasikes.i07ip513')
-		.addTo(map);	
-	var pdsiGridControl = L.mapbox.gridControl(pdsiGridLayer).addTo(map);
+		// .addTo(map);	
+
+
+	var ui = document.getElementById('map-ui');
+
+	addLayer( watershedTiles, 'Watersheds', 1);
+	addLayer( flowlineTiles, 'Flow Lines', 2);
+	addLayer( acpwagridTiles, 'Service Area', 3);
+
+	// addLayer(L.mapbox.tileLayer('examples.map-zgrqqx0w'), 'Base Map', 1);
+	// addLayer(L.mapbox.tileLayer('examples.bike-lanes'), 'Bike Lanes', 2);
+	// addLayer(L.mapbox.tileLayer('examples.bike-locations'), 'Bike Stations', 3);
+
+	function addLayer(layer, name, zIndex) {
+	  layer
+	    .setZIndex(zIndex)
+	    .addTo(map);
+
+	  // Create a simple layer switcher that toggles layers on
+	  // and off.
+	  var item = document.createElement('li');
+	  var link = document.createElement('a');
+
+	  link.href = '#';
+	  link.className = 'active';
+	  link.innerHTML = name;
+
+	  link.onclick = function(e) {
+	    e.preventDefault();
+	    e.stopPropagation();
+
+	    if (map.hasLayer(layer)) {
+	      map.removeLayer(layer);
+	      this.className = '';
+	    } else {
+	      map.addLayer(layer);
+	      this.className = 'active';
+	    }
+	  };
+
+	  item.appendChild(link);
+	  ui.appendChild(item);
+	}
+
 
 
 	// pdsiGridLayer.on('mouseover', function(e){
